@@ -4,6 +4,7 @@ import JinRyuu.JRMCore.JRMCoreEH;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import cpw.mods.fml.common.FMLLog;
 import kamkeel.npcdbc.constants.DBCDamageSource;
 import kamkeel.npcdbc.data.DBCDamageCalc;
 import kamkeel.npcdbc.data.form.Form;
@@ -11,6 +12,7 @@ import kamkeel.npcdbc.scripted.DBCEventHooks;
 import kamkeel.npcdbc.scripted.DBCPlayerEvent;
 import kamkeel.npcdbc.util.DBCUtils;
 import kamkeel.npcdbc.util.PlayerDataUtil;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
@@ -44,6 +46,9 @@ public class MixinJRMCoreEH {
                 }
             }
         }
+
+        FMLLog.getLogger().info("[DAMAGE] [{}] MixinJRMCoreEH::NPCDamaged {}", System.nanoTime(), dam.get());
+
     }
 
     @Inject(method = "Sd35MR", at = @At(value = "INVOKE", target = "LJinRyuu/JRMCore/JRMCoreH;a1t3(Lnet/minecraft/entity/player/EntityPlayer;)V", ordinal = 0, shift = At.Shift.BEFORE), cancellable = true)

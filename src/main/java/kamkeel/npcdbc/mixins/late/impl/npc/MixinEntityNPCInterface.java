@@ -2,6 +2,7 @@ package kamkeel.npcdbc.mixins.late.impl.npc;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import kamkeel.npcdbc.data.dbcdata.DBCData;
 import kamkeel.npcdbc.mixins.late.impl.dbc.MixinJRMCoreEH;
@@ -51,6 +52,8 @@ public abstract class MixinEntityNPCInterface extends EntityCreature implements 
     public void fixDamagedEventDBCDamage(DamageSource damagesource, float amount, CallbackInfoReturnable<Boolean> cir, @Local(name = "i") LocalFloatRef dam) {
         Entity attackerEntity = NoppesUtilServer.GetDamageSource(damagesource);
 
+        FMLLog.getLogger().info("[DAMAGE] [{}] MixinEntityNPCInterface::fixDamagedEventDBCDamage 1: {} attackerIsPlayer{}", System.nanoTime(), dam.get(), attackerEntity instanceof EntityPlayer);
+
         if (attackerEntity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attackerEntity;
             DBCData data = DBCData.get(player);
@@ -84,6 +87,9 @@ public abstract class MixinEntityNPCInterface extends EntityCreature implements 
             DBCUtils.npcLastSetDamage = (int) instance.getDamage();
         }
         dbcAltered = false;
+
+        FMLLog.getLogger().info("[DAMAGE] [{}] MixinEntityNPCInterface::fixDamagedEventDBCDamage 2: {}", System.nanoTime(), instance.getDamage());
+
         return instance.getDamage();
     }
 
