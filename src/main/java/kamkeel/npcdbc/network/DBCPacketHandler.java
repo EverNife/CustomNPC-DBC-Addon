@@ -1,5 +1,6 @@
 package kamkeel.npcdbc.network;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.FMLEventChannel;
 import cpw.mods.fml.common.network.FMLNetworkEvent;
@@ -28,6 +29,7 @@ import kamkeel.npcdbc.network.packets.request.form.DBCSaveForm;
 import kamkeel.npcdbc.network.packets.request.outline.DBCRemoveOutline;
 import kamkeel.npcdbc.network.packets.request.outline.DBCSaveOutline;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
@@ -35,8 +37,10 @@ import noppes.npcs.CustomNpcs;
 import noppes.npcs.CustomNpcsPermissions;
 import noppes.npcs.LogWriter;
 import noppes.npcs.NoppesUtilServer;
+import noppes.npcs.api.entity.ICustomNpc;
 import noppes.npcs.config.ConfigMain;
 import noppes.npcs.entity.EntityNPCInterface;
+import noppes.npcs.scripted.event.NpcEvent;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

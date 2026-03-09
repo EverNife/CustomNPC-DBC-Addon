@@ -49,6 +49,23 @@ public class MixinJRMCoreEH {
 
         FMLLog.getLogger().info("[DAMAGE] [{}] MixinJRMCoreEH::NPCDamaged {}", System.nanoTime(), dam.get());
 
+        if (targetEntity.isEntityInvulnerable()){
+            return;
+        }
+
+        Entity entity = source.getSourceOfDamage();
+        if (entity instanceof EntityPlayer == false) {
+            return; // Only handle player attacks
+        }
+
+        EntityPlayer player = (EntityPlayer) entity;
+        DBCPlayerEvent.AttackCreatureEvent attackCreatureEvent = new DBCPlayerEvent.AttackCreatureEvent(player, targetEntity, dam.get(), source);
+        if (DBCEventHooks.onAttackCreatureEvent(attackCreatureEvent)) {
+            ci.cancel();
+            return;
+        }
+
+        dam.set(attackCreatureEvent.getDamage());
     }
 
     @Inject(method = "Sd35MR", at = @At(value = "INVOKE", target = "LJinRyuu/JRMCore/JRMCoreH;a1t3(Lnet/minecraft/entity/player/EntityPlayer;)V", ordinal = 0, shift = At.Shift.BEFORE), cancellable = true)

@@ -13,6 +13,12 @@ public class DBCEventHooks {
         return NpcAPI.EVENT_BUS.post(formChangeEvent);
     }
 
+    public static boolean onAttackCreatureEvent(DBCPlayerEvent.AttackCreatureEvent attackCreatureEvent) {
+        PlayerDataScript handler = ScriptController.Instance.playerScripts;
+        handler.callScript(DBCScriptType.ATTACK_CREATURE.function, attackCreatureEvent);
+        return NpcAPI.EVENT_BUS.post(attackCreatureEvent);
+    }
+
     public static boolean onDBCDamageEvent(DBCPlayerEvent.DamagedEvent damagedEvent) {
         PlayerDataScript handler = ScriptController.Instance.getPlayerScripts(damagedEvent.getPlayer());
         handler.callScript(DBCScriptType.DAMAGED.function, damagedEvent);

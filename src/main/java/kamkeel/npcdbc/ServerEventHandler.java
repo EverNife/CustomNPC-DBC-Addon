@@ -2,6 +2,7 @@ package kamkeel.npcdbc;
 
 import JinRyuu.JRMCore.entity.EntityCusPar;
 import JinRyuu.JRMCore.server.config.dbc.JGConfigDBCFormMastery;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -33,6 +34,7 @@ import kamkeel.npcdbc.util.PlayerDataUtil;
 import kamkeel.npcdbc.util.Utility;
 import kamkeel.npcs.network.enums.EnumSyncAction;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,16 +44,54 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import noppes.npcs.api.entity.ICustomNpc;
 import noppes.npcs.controllers.PlayerDataController;
 import noppes.npcs.controllers.data.PlayerData;
 import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
+import noppes.npcs.scripted.event.NpcEvent;
 import noppes.npcs.util.ValueUtil;
 
 import java.util.Iterator;
 import java.util.Random;
 
 public class ServerEventHandler {
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onNpcEventDamagedEvent(NpcEvent.DamagedEvent npcDamagedEvent) {
+//        EntityLivingBase attacker = (EntityLivingBase) npcDamagedEvent.source.getMCEntity();
+//        ICustomNpc npc = npcDamagedEvent.getNpc();
+//
+//        String defenderName = npc.getName();
+//        String attackerName = attacker.getCommandSenderName();
+//        float bukkitDamageInitial = npcDamagedEvent.getDamage();
+//
+//        //Check if the attacker is a DBC player
+//        System.out.println(String.format(
+//            "[DUMB MOB] [NPC_BEING_DAMAGED] [INITIAL_MONITOR]" +
+//                "\n Damage: %s (Half-Hearts)" +
+//                "\n DamageSource: %s" +
+//                "\n Victim: %s " +
+//                "\n Attacker: %s " +
+//                "\n Cancealed: %s",
+//            bukkitDamageInitial,
+//            npcDamagedEvent.getDamageSource().getType(),
+//            defenderName,
+//            attackerName,
+//            npcDamagedEvent.isCanceled()
+//        ));
+//
+//        //Do actual cancelation
+//        try {
+//            System.out.println("Sleeping for 10ms");
+//            Thread.sleep(10);
+//            System.out.println("Awake");
+//        }catch (Exception e){
+//
+//        }
+//
+//        npcDamagedEvent.setCanceled(true);
+    }
 
     @SubscribeEvent
     public void loginEvent(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
